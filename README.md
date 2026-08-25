@@ -96,15 +96,11 @@ Dynamic PET TACs are generated using a reversible two-tissue compartment model (
 The tissue compartments follow:
 
 $$
-\frac{dC_1}{dt}
-=
-K_1 C_p-(k_2+k_3)C_1+k_4C_2
+\frac{dC_1}{dt} = K_1 C_p-(k_2+k_3)C_1+k_4C_2
 $$
 
 $$
-\frac{dC_2}{dt}
-=
-k_3C_1-k_4C_2
+\frac{dC_2}{dt} = k_3C_1-k_4C_2
 $$
 
 where:
