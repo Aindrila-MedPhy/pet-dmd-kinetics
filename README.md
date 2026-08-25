@@ -88,7 +88,7 @@ The project also explores the transfer of a Hankel-DMD / Koopman time-series fra
 └──────────────────────────────┘
 ````
 # Methodology
-````
+
 ## 1. Dynamic PET Simulation
 
 Dynamic PET TACs are generated using a reversible two-tissue compartment model (2TCM).
@@ -96,15 +96,14 @@ Dynamic PET TACs are generated using a reversible two-tissue compartment model (
 The tissue compartments follow:
 
 $$
-\frac{dC_1}{dt} = K_1 C_p-(k_2+k_3)C_1+k_4C_2
+\frac{dC_1}{dt}=K_1C_p-(k_2+k_3)C_1+k_4C_2
 $$
 
 $$
-\frac{dC_2}{dt} = k_3C_1-k_4C_2
+\frac{dC_2}{dt}=k_3C_1-k_4C_2
 $$
 
 where:
-
 - $C_p(t)$ = arterial plasma input function
 - $C_1(t)$ = first tissue compartment
 - $C_2(t)$ = second tissue compartment
@@ -116,9 +115,7 @@ where:
 The measured tissue activity is:
 
 $$
-C_t(t)
-=
-(1-v_B)(C_1+C_2)+v_BC_p
+C_t(t)=(1-v_B)(C_1+C_2)+v_BC_p
 $$
 
 where $v_B$ represents the blood-volume fraction.
@@ -134,12 +131,7 @@ where $v_B$ represents the blood-volume fraction.
 The ground-truth total distribution volume is:
 
 $$
-V_T
-=
-\frac{K_1}{k_2}
-\left(
-1+\frac{k_3}{k_4}
-\right)
+V_T=\frac{K_1}{k_2}\left(1+\frac{k_3}{k_4}\right)
 $$
 
 giving:
@@ -157,7 +149,6 @@ giving:
 The continuous TACs are converted into discrete PET measurements using a non-uniform dynamic PET frame schedule.
 
 The simulation includes:
-
 - bi-exponential arterial input function
 - PET frame averaging
 - signal-dependent noise
@@ -176,19 +167,12 @@ Hankel-DMD uses delay embedding to represent the TAC as a higher-dimensional dyn
 For a TAC $x(t)$, a Hankel matrix is constructed as:
 
 $$
-H=
-\begin{bmatrix}
-x_1 & x_2 & x_3 & \cdots \\
-x_2 & x_3 & x_4 & \cdots \\
-x_3 & x_4 & x_5 & \cdots \\
-\vdots & \vdots & \vdots & \ddots
-\end{bmatrix}
+H=\begin{bmatrix}x_1 & x_2 & x_3 & \cdots \\ x_2 & x_3 & x_4 & \cdots \\ x_3 & x_4 & x_5 & \cdots \\ \vdots & \vdots & \vdots & \ddots\end{bmatrix}
 $$
 
 DMD is then applied to the delay-embedded representation.
 
 ### DMD Outputs
-
 - selected DMD rank
 - reconstruction $R^2$
 - normalized RMSE
@@ -201,7 +185,6 @@ DMD is then applied to the delay-embedded representation.
 The DMD rates are treated as **data-driven temporal descriptors**.
 
 They are not assumed to be direct estimates of:
-
 - $K_1$
 - $k_2$
 - $k_3$
@@ -290,46 +273,34 @@ Because the simulated 2TCM is reversible ($k_4>0$), Patlak is treated here as a 
 # Key Findings
 
 ## Hankel-DMD
-
 - High reconstruction accuracy across all simulated regions.
 - $R^2 > 0.996$ for all three TACs.
 - Distinct slow, intermediate, and fast temporal components were identified.
 - The DMD representation does not require the 2TCM equations during the DMD analysis.
 
 ## Conventional Kinetic Analysis
-
 - 2TCM recovered $V_T$ accurately for grey matter and lesion.
 - The white-matter 2TCM fit showed a large $V_T$ error.
 - Logan provided $V_T$ estimates with 5–13% error in these simulations.
 - Patlak produced highly linear graphical fits for the selected fitting interval.
 
 ## Overall
-
 Hankel-DMD provides a **high-fidelity, model-independent representation of the temporal dynamics** of the simulated PET TACs.
 
 The current results do not establish DMD as a replacement for conventional PET kinetic modelling. Instead, they demonstrate its potential as a **complementary data-driven dynamical analysis and feature-extraction framework**.
 
-Figures
-Simulated Dynamic PET TACs
-
-Hankel-DMD Decomposition
-
-Conventional Kinetic Comparison
+---
 
 # Figures
 
 ### Simulated Dynamic PET TACs
-
 ![Simulated Dynamic PET TACs](figures/figures_tacs.png)
 
 ### Hankel-DMD Decomposition
-
 ![Hankel-DMD Decomposition](figures/dmd_validated_pet_tacs.png)
 
 ### Conventional Kinetic Comparison
-
 ![Conventional Kinetic Comparison](figures/FINAL_PET_KINETIC_COMPARISON.png)
-
 ---
 
 # Project Structure
